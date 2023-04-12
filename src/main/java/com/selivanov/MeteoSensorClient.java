@@ -39,4 +39,15 @@ public class MeteoSensorClient {
 
         makePostRequestWithJsonData(url, jsonData);
     }
+
+    private static void sendMeasurement(double value, boolean isRaining, String sensorName) {
+        final String url = "http://localhost:8080/measurements/add";
+
+        Map<String, Object> jsonData = new HashMap<>();
+        jsonData.put("value", value);
+        jsonData.put("isRaining", isRaining);
+        jsonData.put("sensor", Map.of("name", sensorName));
+
+        makePostRequestWithJsonData(url, jsonData);
+    }
 }
