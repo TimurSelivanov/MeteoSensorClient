@@ -8,11 +8,23 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MeteoSensorClient {
     public static void main(String[] args) {
 
         final String sensorName = "Test Sensor";
+
+        registerSensor(sensorName);
+
+        Random random = new Random();
+
+        double maxTemperature = 50.0;
+        for(int i = 0; i < 100; i++) {
+            System.out.println(i);
+            sendMeasurement(random.nextDouble() * maxTemperature, random.nextBoolean(), sensorName);
+        }
+
     }
 
     private static void makePostRequestWithJsonData(String url, Map<String, Object> jsonData) {
@@ -24,7 +36,7 @@ public class MeteoSensorClient {
         HttpEntity<Object> request = new HttpEntity<Object>(jsonData, headers);
 
         try {
-            restTemplate.patchForObject(url, request, String.class);
+            restTemplate.postForObject(url, request, String.class);
         } catch (HttpClientErrorException exception) {
             System.out.println("Error");
             System.out.println(exception.getMessage());
