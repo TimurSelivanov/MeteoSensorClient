@@ -20,7 +20,7 @@ public class MeteoSensorClient {
         Random random = new Random();
 
         double maxTemperature = 50.0;
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println(i);
             sendMeasurement(random.nextDouble() * maxTemperature, random.nextBoolean(), sensorName);
         }
@@ -33,7 +33,7 @@ public class MeteoSensorClient {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<Object> request = new HttpEntity<Object>(jsonData, headers);
+        HttpEntity<Object> request = new HttpEntity<>(jsonData, headers);
 
         try {
             restTemplate.postForObject(url, request, String.class);
