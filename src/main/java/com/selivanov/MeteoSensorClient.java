@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MeteoSensorClient {
@@ -28,5 +29,14 @@ public class MeteoSensorClient {
             System.out.println("Error");
             System.out.println(exception.getMessage());
         }
+    }
+
+    private static void registerSensor(String sensorName) {
+        final String url = "http://localhost:8080/sensors/registration";
+
+        Map<String, Object> jsonData = new HashMap<>();
+        jsonData.put("name", sensorName);
+
+        makePostRequestWithJsonData(url, jsonData);
     }
 }
